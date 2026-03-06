@@ -13,24 +13,26 @@ It searches for buttons with text content matching `Accept`, `Run`, `Always Allo
 
 ---
 
-## Installation
+### Option 1: Install from Open VSX (Recommended for Autoupdate)
 
-### Option 1: Install from VSIX
+Antigravity IDE is compatible with the [Open VSX Registry](https://open-vsx.org/). This is the best way to get **automatic updates**.
 
 1. Open Antigravity IDE
-2. Go to Extensions -> Click ... menu -> Install from VSIX...
-3. Select the built `.vsix` file
-4. Restart the IDE
+2. Go to the **Extensions** view
+3. Search for `ag-auto-accept-quack`
+4. Click **Install**
 
-### Option 2: Build from Source
+### Option 2: Install from GitHub Releases
 
-```bash
-git clone https://github.com/quackextractor/ag-auto-accept-quack.git
-cd ag-auto-accept-quack
-pack.bat
-```
+If you prefer to stay on GitHub, you can download the latest `.vsix` from the [Releases](https://github.com/quackextractor/ag-auto-accept-quack/releases) page.
 
-Then install the generated .vsix file as described above.
+1. Download the latest `ag-auto-accept-quack.vsix`
+2. Open Antigravity IDE
+3. Go to Extensions -> Click `...` menu -> **Install from VSIX...**
+4. Select the downloaded file
+
+> [!TIP]
+> To enable "autoupdate from GitHub" without the Marketplace, you can use the [VS Code Extension Updater](https://marketplace.visualstudio.com/items?itemName=felipecaputo.vscode-extension-updater) and follow its configuration for GitHub.
 
 ---
 
