@@ -8,8 +8,9 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# IDE settings (optional - you may want to keep these)
+# IDE settings
 .vscode/
+.idea
 
 # Temporary files
 *.log
