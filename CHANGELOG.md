@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.0.7] - 2026-03-06
+### Added
+- Added GitHub Action workflow for automated building and publishing to GitHub Releases.
+- Updated README with autoupdate instructions via Open VSX and GitHub Releases.
+
 ## [1.0.6] - 2026-03-06
 ### Added
 - Integrated ESLint into the build process for automated code quality checks.
