@@ -44,6 +44,5 @@ jobs:
           asset_name: ag-auto-accept-quack.vsix
           asset_content_type: application/octet-stream
 
-      # Optional: Publish to Open VSX for native autoupdate in Antigravity IDE
-      # - name: Publish to Open VSX
-      #   run: npx ovsx publish -p ${{ secrets.OVSX_TOKEN }}
+      - name: Publish to Open VSX
+        run: npx ovsx publish -p ${{ secrets.OVSX_TOKEN }}
