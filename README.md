@@ -55,6 +55,12 @@ If you prefer to stay on GitHub, you can download the latest `.vsix` from the [R
 
 ---
 
-## 📜 License
+---
+
+## Credits
+
+Special thanks to **pesosz** for the original idea that inspired this project. While the source code for this "Quack Edition" has been completely rewritten to use DOM text-matching for newer Antigravity versions, the core concept remains a tribute to the original tool.
+
+## License
 
 MIT - See [LICENSE](LICENSE) for details.
