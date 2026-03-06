@@ -7,11 +7,12 @@
 
 This extension uses a DOM text-matching workaround designed for newer versions (like 1.18.4) where standard VS Code commands (`antigravity.agent.acceptAgentStep`) might not work or where Google changed the DOM classes.
 
-It searches for buttons with text content matching `Accept`, `Run`, `Always Allow`, or `Allow` and automatically clicks them. 
-
-*(Note: Because standard VS Code extensions do not share a DOM with the main IDE window, this extension serves as a proof of concept. To manually apply the workaround, you can toggle Developer Tools and paste the script directly into the Console).*
+It searches for buttons with text content matching `Accept`, `Run`, `Always Allow`, or `Allow` and automatically clicks them. It also clicks "Expand all" spans to reveal hidden agent steps.
 
 ---
+> [!NOTE]
+> **Open VSX Verification**: The extension may show an "unverified" warning on Open VSX until the `quackextractor` namespace is officially claimed. This does not affect functionality.
+
 
 ### Option 1: Install from Open VSX (Recommended for Autoupdate)
 
@@ -30,10 +31,6 @@ If you prefer to stay on GitHub, you can download the latest `.vsix` from the [R
 2. Open Antigravity IDE
 3. Go to Extensions -> Click `...` menu -> **Install from VSIX...**
 4. Select the downloaded file
-
-> [!TIP]
-> To enable "autoupdate from GitHub" without the Marketplace, you can use the [VS Code Extension Updater](https://marketplace.visualstudio.com/items?itemName=felipecaputo.vscode-extension-updater) and follow its configuration for GitHub.
-
 ---
 
 ## Features

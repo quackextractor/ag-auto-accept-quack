@@ -33,3 +33,10 @@ npx vsce package
 4.  Click **Publish**.
 
 It will take a few minutes to process, and then it will be available in the Antigravity Extensions view!
+## 5. Claim Your Namespace (Verification)
+If you see a warning that your account is not a verified publisher, you need to claim ownership of the namespace:
+1.  Log in to [open-vsx.org](https://open-vsx.org).
+2.  Go to [EclipseFdn/open-vsx.org](https://github.com/EclipseFdn/open-vsx.org/issues) on GitHub.
+3.  Create a new issue with the title: **Claim namespace: quackextractor**.
+4.  In the description, state that you are the owner of the `quackextractor` namespace and would like to be granted ownership to verify your extensions.
+5.  Once granted, the ⚠️ warning will disappear and be replaced by a verification shield.

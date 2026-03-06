@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.0.8] - 2026-03-06
+### Changed
+- Updated documentation with instructions for Open VSX namespace verification.
+- Added verification status note to README.
+
 ## [1.0.7] - 2026-03-06
 ### Added
 - Added GitHub Action workflow for automated building and publishing to GitHub Releases and Open VSX.
