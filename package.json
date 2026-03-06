@@ -2,7 +2,7 @@
   "name": "ag-auto-accept-quack",
   "displayName": "Antigravity Auto Accept Quack",
   "description": "Automatically accepts Antigravity agent steps without limits, using DOM text-matching for newer versions.",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "icon": "icon.png",
   "publisher": "pesosz",
   "repository": {
@@ -20,7 +20,8 @@
     "Other"
   ],
   "scripts": {
-    "test": "node tests/extension.test.js"
+    "test": "node tests/extension.test.js",
+    "lint": "eslint ."
   },
   "contributes": {
     "commands": [
@@ -36,5 +37,8 @@
         "mac": "cmd+alt+shift+u"
       }
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
   }
 }

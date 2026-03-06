@@ -24,7 +24,7 @@ const vscode = {
             commands.set(id, callback);
             return { dispose: () => { } };
         },
-        executeCommand: async (id) => {
+        executeCommand: async () => {
             // console.log(`Executing command: ${id}`);
             return Promise.resolve();
         }
