@@ -4,7 +4,7 @@
   "description": "Automatically accepts Antigravity agent steps without limits, using DOM text-matching for newer versions.",
   "version": "1.0.6",
   "icon": "icon.png",
-  "publisher": "pesosz",
+  "publisher": "quackextractor",
   "repository": {
     "type": "git",
     "url": "https://github.com/quackextractor/ag-auto-accept-quack"
