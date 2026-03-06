@@ -1,0 +1,13 @@
+Here is a temporary solution before a new release or fork comes out. The credit goes to Gemini or some other post.
+The Updated DevTools Hack (Text-Matching)
+
+If you want to stay on 1.18.4, the old Developer Tools hack still works, but you have to update the JavaScript. Because Google changed the DOM classes in 1.18.4, you need a script that searches for the text of the button rather than the CSS class.
+
+Go to Help > Toggle Developer Tools and open the Console.
+    Paste this updated script and hit Enter:
+
+setInterval(() => { 
+    const buttons = Array.from(document.querySelectorAll('button')); 
+    const acceptBtn = buttons.find(b => b.textContent.includes('Accept') || b.textContent.includes('Run') || b.textContent.includes('Always Allow') || b.textContent.includes('Allow'));
+    if(acceptBtn) acceptBtn.click(); 
+}, 1500);

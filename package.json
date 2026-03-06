@@ -1,0 +1,40 @@
+{
+  "name": "ag-auto-accept-quack",
+  "displayName": "Antigravity Auto Accept Quack",
+  "description": "Automatically accepts Antigravity agent steps without limits, using DOM text-matching for newer versions.",
+  "version": "1.0.2",
+  "icon": "icon.png",
+  "publisher": "pesosz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pesoszpesosz/ag-auto-accept-quack"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "categories": [
+    "Other"
+  ],
+  "scripts": {
+    "test": "node tests/extension.test.js"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "unlimited.toggle",
+        "title": "Toggle Unlimited Auto-Accept (Quack)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "unlimited.toggle",
+        "key": "ctrl+alt+shift+u",
+        "mac": "cmd+alt+shift+u"
+      }
+    ]
+  }
+}
