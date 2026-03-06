@@ -3,9 +3,10 @@ All notable changes to the "ag-auto-accept-quack" extension will be documented i
 
 ## [1.0.7] - 2026-03-06
 ### Added
-- Added GitHub Action workflow for automated building and publishing to GitHub Releases.
+- Added GitHub Action workflow for automated building and publishing to GitHub Releases and Open VSX.
 - Updated README with autoupdate instructions via Open VSX and GitHub Releases.
 - Added credits to **pesosz** for the original project concept.
+- Configured repository secrets for secure automated publishing.
 
 ## [1.0.6] - 2026-03-06
 ### Added
