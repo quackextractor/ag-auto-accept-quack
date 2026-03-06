@@ -36,12 +36,12 @@ function updateStatusBar() {
     if (!statusBarItem) return;
 
     if (enabled) {
-        statusBarItem.text = "Auto-Accept: ON";
-        statusBarItem.tooltip = "Unlimited Auto-Accept is Executing (Click to Pause)";
+        statusBarItem.text = "Quack Auto-Accept: ON";
+        statusBarItem.tooltip = "Quack Auto-Accept is Executing (Click to Pause)";
         statusBarItem.backgroundColor = undefined;
     } else {
-        statusBarItem.text = "Auto-Accept: OFF";
-        statusBarItem.tooltip = "Unlimited Auto-Accept is Paused (Click to Resume)";
+        statusBarItem.text = "Quack Auto-Accept: OFF";
+        statusBarItem.tooltip = "Quack Auto-Accept is Paused (Click to Resume)";
         statusBarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
     }
 }
