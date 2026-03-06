@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](https://github.com/pesoszpesosz/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
@@ -25,7 +25,7 @@ It searches for buttons with text content matching `Accept`, `Run`, `Always Allo
 ### Option 2: Build from Source
 
 ```bash
-git clone https://github.com/pesoszpesosz/ag-auto-accept-quack.git
+git clone https://github.com/quackextractor/ag-auto-accept-quack.git
 cd ag-auto-accept-quack
 npm install -g @vscode/vsce
 vsce package
