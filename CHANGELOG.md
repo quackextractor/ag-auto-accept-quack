@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.0.11] - 2026-03-06
+### Added
+- Expanded the Issues & Contributing section in README.md to help users better report bugs and request features.
+
+## [1.0.10] - 2026-03-06
+### Changed
+- Updated CI/CD to use Node.js 20 and the modern `@vscode/vsce` package builder.
+
 ## [1.0.9] - 2026-03-06
 ### Changed
 - Configured GitHub Actions to automatically bump version and publish the extension on every push to master.

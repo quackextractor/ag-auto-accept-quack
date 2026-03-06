@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.0.7-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.0.11-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
@@ -49,11 +49,29 @@ If you prefer to stay on GitHub, you can download the latest `.vsix` from the [R
 
 ---
 
+## Issues & Contributing
+
+I welcome feedback, bug reports, and feature requests!
+
+Before submitting an issue, please check the [Issue Tracker](https://github.com/quackextractor/ag-auto-accept-quack/issues) to see if it has already been reported.
+
+### Bug Reports
+If you encounter a problem, please [Open a Bug Report](https://github.com/quackextractor/ag-auto-accept-quack/issues/new). When reporting a bug, try to include:
+- Your OS and VS Code version.
+- The version of the Antigravity Agent.
+- Explicit steps to reproduce the issue.
+
+### Feature Requests
+Have an idea to improve the extension? [Submit a Feature Request](https://github.com/quackextractor/ag-auto-accept-quack/issues/new) detailing what you want to achieve and how it would help.
+
+### Contributing
+Pull requests are welcome! If you're working on something significant, please open an issue first to discuss your proposed changes.
+
 ---
 
 ## Credits
 
-Special thanks to **pesosz** for the original idea that inspired this project. While the source code for this "Quack Edition" has been completely rewritten to use DOM text-matching for newer Antigravity versions, the core concept remains a tribute to the original tool.
+Special thanks to **pesosz** for the original idea that inspired this project. While the source code for this "Quack Edition" has been completely rewritten to use DOM text-matching for ne`we`r Antigravity versions, the core concept remains a tribute to the original tool.
 
 ## License
 
