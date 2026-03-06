@@ -10,9 +10,6 @@ This extension uses a DOM text-matching workaround designed for newer versions (
 It searches for buttons with text content matching `Accept`, `Run`, `Always Allow`, or `Allow` and automatically clicks them. It also clicks "Expand all" spans to reveal hidden agent steps.
 
 ---
-> [!NOTE]
-> **Open VSX Verification**: The extension may show an "unverified" warning on Open VSX until the `quackextractor` namespace is officially claimed. This does not affect functionality.
-
 
 ### Option 1: Install from Open VSX (Recommended for Autoupdate)
 
