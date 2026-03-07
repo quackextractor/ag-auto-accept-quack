@@ -12,15 +12,61 @@ global.clearInterval = (interval) => {
     intervals = intervals.filter(i => i.id !== interval.id);
 };
 
-// Mock require('vscode') for the extension
+// Mock require('vscode') and other dependencies for the extension
 const Module = require('module');
 const originalRequire = Module.prototype.require;
+
+// Dummy WebSocket implementation
+class DummyWebSocket {
+    constructor(url) {
+        this.url = url;
+        setTimeout(() => {
+            if (this.onopen) this.onopen();
+            if (this.listeners && this.listeners['open']) this.listeners['open']();
+        }, 0);
+    }
+    on(event, cb) {
+        this.listeners = this.listeners || {};
+        this.listeners[event] = cb;
+    }
+    send(data) {
+        // execute script immediately in global context
+        const msg = JSON.parse(data);
+        if (msg.method === 'Runtime.evaluate' && msg.params && msg.params.expression) {
+            eval(msg.params.expression); // execute the injected script
+        }
+        if (this.listeners && this.listeners['message']) this.listeners['message']({});
+    }
+    close() { }
+}
+
 Module.prototype.require = function (name) {
     if (name === 'vscode') return vscode;
+    if (name === 'ws') return DummyWebSocket;
+    if (name === 'http') {
+        return {
+            get: (url, cb) => {
+                const res = {
+                    on: (event, handler) => {
+                        if (event === 'data') {
+                            handler(JSON.stringify([{ url: 'vscode-webview://test', webSocketDebuggerUrl: 'ws://dummy' }]));
+                        }
+                        if (event === 'end') {
+                            handler();
+                        }
+                    }
+                };
+                if (cb) cb(res);
+                return { on: (event, handler) => { } };
+            }
+        };
+    }
     return originalRequire.apply(this, arguments);
 };
 
 const extension = require('../extension');
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function runTests() {
     console.log('Running tests...');
@@ -33,6 +79,16 @@ async function runTests() {
 
     console.log('Test: Loop execution when enabled');
 
+    const helpCommand = commands.get('quack.help');
+    assert.ok(helpCommand, 'quack.help command should be registered');
+    helpCommand(); // invoke to test it does not crash webview mock
+
+    // Mock global window and MouseEvent
+    global.window = {};
+    global.MouseEvent = class {
+        constructor(type, params) { }
+    };
+
     // Mock global document
     let clickCount = 0;
     let expandCount = 0;
@@ -40,16 +96,16 @@ async function runTests() {
         querySelectorAll: (selector) => {
             if (selector === 'button') {
                 return [
-                    { textContent: 'Cancel', click: () => { assert.fail('Should not click Cancel'); } },
-                    { textContent: 'Accept Request', click: () => { clickCount++; } },
-                    { textContent: 'Run command', click: () => { clickCount++; } }
+                    { textContent: 'Cancel', dispatchEvent: () => { assert.fail('Should not click Cancel'); } },
+                    { textContent: 'Accept', dispatchEvent: () => { clickCount++; } },
+                    { textContent: 'Run', dispatchEvent: () => { clickCount++; } }
                 ];
             }
             if (selector === 'span[role="button"]') {
                 return [
-                    { textContent: 'Some other span', click: () => { assert.fail('Should not click this span'); } },
-                    { textContent: 'Expand all', click: () => { expandCount++; } },
-                    { textContent: 'Expand all', click: () => { expandCount++; } }
+                    { textContent: 'Some other span', dispatchEvent: () => { assert.fail('Should not click this span'); } },
+                    { textContent: 'Expand all', dispatchEvent: () => { expandCount++; } },
+                    { textContent: 'Expand all', dispatchEvent: () => { expandCount++; } }
                 ];
             }
             return [];
@@ -58,6 +114,7 @@ async function runTests() {
 
     // Trigger loop
     await loop.fn();
+    await wait(50); // wait for mock http and dummy WS to trigger
 
     // Since find stops at the first match, only 'Accept Request' is clicked in this loop iteration
     assert.equal(clickCount, 1, `Should have clicked 1 button, clicked ${clickCount}`);
@@ -71,6 +128,7 @@ async function runTests() {
     clickCount = 0;
     expandCount = 0;
     await loop.fn();
+    await wait(50);
     assert.equal(clickCount, 0, 'Should not execute commands when disabled');
     assert.equal(expandCount, 0, 'Should not execute commands when disabled');
 
@@ -79,6 +137,7 @@ async function runTests() {
     clickCount = 0;
     expandCount = 0;
     await loop.fn();
+    await wait(50);
     assert.equal(clickCount, 1, 'Should execute commands when re-enabled');
     assert.equal(expandCount, 2, 'Should click expand spans when re-enabled');
 

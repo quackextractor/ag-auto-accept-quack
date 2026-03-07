@@ -5,6 +5,9 @@ const vscode = {
     StatusBarAlignment: {
         Right: 1
     },
+    ViewColumn: {
+        One: 1
+    },
     window: {
         registerCommand: (id, callback) => {
             commands.set(id, callback);
@@ -17,7 +20,13 @@ const vscode = {
             tooltip: '',
             backgroundColor: undefined
         }),
-        showInformationMessage: () => { }
+        showInformationMessage: () => { },
+        showErrorMessage: () => { },
+        createWebviewPanel: () => ({
+            webview: {
+                html: ''
+            }
+        })
     },
     commands: {
         registerCommand: (id, callback) => {

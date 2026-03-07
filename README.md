@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.0.11-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
@@ -17,7 +17,7 @@ Antigravity IDE is compatible with the [Open VSX Registry](https://open-vsx.org/
 
 1. Open Antigravity IDE
 2. Go to the **Extensions** view
-3. Search for `ag-auto-accept-quack`
+3. Search for `quackextractor`
 4. Click **Install**
 
 ### Option 2: Install from GitHub Releases
@@ -60,6 +60,34 @@ If you encounter a problem, please [Open a Bug Report](https://github.com/quacke
 - Your OS and VS Code version.
 - The version of the Antigravity Agent.
 - Explicit steps to reproduce the issue.
+
+### Troubleshooting
+If the extension isn't clicking buttons and the console shows connection errors, ensure your testing environment opens with the correct debugging port enabled:
+
+1. **Locate the `.vscode` folder:** Look in the root directory of your extension project. If a folder named `.vscode` does not exist, create it.
+2. **Create the file:** Inside the `.vscode` folder, create a new file and name it `launch.json`.
+3. **Add the configuration:** Paste the complete JSON code provided below into the file. The critical addition here is the `--remote-debugging-port=9222` flag inside the `args` array.
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Extension with CDP",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--remote-debugging-port=9222"
+            ]
+        }
+    ]
+}
+```
+
+Once this is saved, you can press **F5** or navigate to the Run and Debug view in your sidebar to launch the extension. This will open a new Extension Development Host window that is fully equipped to accept the Chrome DevTools Protocol connections your script is attempting to make.
+
+Alternatively, you can just click the "Quack Help" button in your status bar to view this manual.
 
 ### Feature Requests
 Have an idea to improve the extension? [Submit a Feature Request](https://github.com/quackextractor/ag-auto-accept-quack/issues/new) detailing what you want to achieve and how it would help.

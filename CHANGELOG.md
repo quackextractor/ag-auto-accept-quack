@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.1.0] - 2026-03-07
+### Added
+- Added built-in troubleshooting manual accessible via the `quack-help` status bar item and command.
+- Detailed debugging configuration guide directly in the extension and README.
+
 ## [1.0.11] - 2026-03-06
 ### Added
 - Expanded the Issues & Contributing section in README.md to help users better report bugs and request features.
