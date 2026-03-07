@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.1.3-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
