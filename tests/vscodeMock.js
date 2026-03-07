@@ -8,6 +8,9 @@ const vscode = {
     ViewColumn: {
         One: 1
     },
+    ProgressLocation: {
+        Notification: 15
+    },
     window: {
         registerCommand: (id, callback) => {
             commands.set(id, callback);
@@ -20,8 +23,11 @@ const vscode = {
             tooltip: '',
             backgroundColor: undefined
         }),
-        showInformationMessage: () => { },
-        showErrorMessage: () => { },
+        showInformationMessage: (msg, ...items) => Promise.resolve(items.length > 0 ? items[0] : undefined),
+        showErrorMessage: (msg, ...items) => Promise.resolve(items.length > 0 ? items[0] : undefined),
+        withProgress: (options, task) => {
+            return task({ report: () => { } });
+        },
         createWebviewPanel: () => ({
             webview: {
                 html: ''

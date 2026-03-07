@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const http = require('http');
+const cp = require('child_process');
 
 let WebSocket;
 let autoAcceptInterval = null;
@@ -14,7 +15,36 @@ function activate(context) {
     try {
         WebSocket = require('ws');
     } catch (e) {
-        vscode.window.showErrorMessage('Quack Auto-Accept: WebSocket module not found. Please run "npm install ws" in the extension directory.');
+        vscode.window.showErrorMessage(
+            'Quack Auto-Accept: WebSocket module not found. Would you like to install it now?',
+            'Install ws'
+        ).then(selection => {
+            if (selection === 'Install ws') {
+                const extensionPath = context.extensionPath || __dirname;
+                vscode.window.withProgress({
+                    location: vscode.ProgressLocation.Notification,
+                    title: "Installing ws module...",
+                    cancellable: false
+                }, () => {
+                    return new Promise((resolve, reject) => {
+                        cp.exec('npm install ws', { cwd: extensionPath }, (error) => {
+                            if (error) {
+                                vscode.window.showErrorMessage('Quack Auto-Accept: Failed to install ws: ' + error.message);
+                                reject(error);
+                            } else {
+                                vscode.window.showInformationMessage('Quack Auto-Accept: Successfully installed ws module. Please reload the window.', 'Reload Window')
+                                    .then(reloadSelection => {
+                                        if (reloadSelection === 'Reload Window') {
+                                            vscode.commands.executeCommand('workbench.action.reloadWindow');
+                                        }
+                                    });
+                                resolve();
+                            }
+                        });
+                    });
+                });
+            }
+        });
     }
 
     let disposable = vscode.commands.registerCommand('unlimited.toggle', function () {

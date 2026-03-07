@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.1.2] - 2026-03-07
+### Added
+- Auto-install functionality for the `ws` dependency if it is missing upon activation.
+
+## [1.1.1] - 2026-03-07
+### Changed
+- Minor internal updates.
+
 ## [1.1.0] - 2026-03-07
 ### Added
 - Added built-in troubleshooting manual accessible via the `quack-help` status bar item and command.

@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
@@ -8,6 +8,8 @@
 This extension uses a DOM text-matching workaround designed for newer versions (like 1.18.4) where standard VS Code commands (`antigravity.agent.acceptAgentStep`) might not work or where Google changed the DOM classes.
 
 It searches for buttons with text content matching `Accept`, `Run`, `Always Allow`, or `Allow` and automatically clicks them. It also clicks "Expand all" spans to reveal hidden agent steps.
+
+**New Feature:** If the required `ws` module is missing upon activation, the extension will automatically prompt to install it for you directly within VS Code.
 
 ---
 

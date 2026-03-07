@@ -42,7 +42,18 @@ class DummyWebSocket {
 
 Module.prototype.require = function (name) {
     if (name === 'vscode') return vscode;
-    if (name === 'ws') return DummyWebSocket;
+    if (name === 'ws') {
+        if (global.mockWsThrow) throw new Error("Cannot find module 'ws'");
+        return DummyWebSocket;
+    }
+    if (name === 'child_process') {
+        return {
+            exec: (cmd, opts, cb) => {
+                global.execCalledWith = cmd;
+                if (cb) cb(null, 'ok', '');
+            }
+        };
+    }
     if (name === 'http') {
         return {
             get: (url, cb) => {
@@ -57,7 +68,7 @@ Module.prototype.require = function (name) {
                     }
                 };
                 if (cb) cb(res);
-                return { on: (event, handler) => { } };
+                return { on: () => { } };
             }
         };
     }
@@ -86,7 +97,7 @@ async function runTests() {
     // Mock global window and MouseEvent
     global.window = {};
     global.MouseEvent = class {
-        constructor(type, params) { }
+        constructor() { }
     };
 
     // Mock global document
@@ -150,6 +161,20 @@ async function runTests() {
         assert.fail('Should handle undefined document gracefully');
     }
     global.document = originalDoc;
+
+    console.log('Test: Auto-install ws module');
+    extension.deactivate();
+
+    // Clear require cache for extension.js
+    delete require.cache[require.resolve('../extension')];
+
+    global.mockWsThrow = true;
+    const extension2 = require('../extension');
+    extension2.activate(context);
+
+    await wait(100); // wait for promises to resolve
+    assert.equal(global.execCalledWith, 'npm install ws', 'Should have executed npm install ws');
+    console.log('Auto-install test passed!');
 
     console.log('All tests passed!');
 }
