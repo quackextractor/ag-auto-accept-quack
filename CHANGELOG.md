@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.1.3] - 2026-03-07
+### Changed
+- Configured GitHub Actions publishing workflow to automatically update the version badge in `README.md` and keep `version.md` in sync during releases.
+
 ## [1.1.2] - 2026-03-07
 ### Added
 - Auto-install functionality for the `ws` dependency if it is missing upon activation.

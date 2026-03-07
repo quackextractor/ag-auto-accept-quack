@@ -33,7 +33,8 @@ jobs:
             npm --no-git-tag-version version patch
             NEW_VERSION=$(node -p "require('./package.json').version")
             sed -i -E "s/badge\/version-[0-9.]+-[a-zA-Z]+\.svg/badge\/version-${NEW_VERSION}-blue.svg/g" README.md
-            git add package.json package-lock.json README.md
+            echo "${NEW_VERSION}" > version.md
+            git add package.json package-lock.json README.md version.md
             git commit -m "Bump version to ${NEW_VERSION} [skip ci]"
             git tag "v${NEW_VERSION}"
             git push origin master --follow-tags
