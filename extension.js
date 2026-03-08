@@ -6,6 +6,7 @@ let WebSocket;
 let autoAcceptInterval = null;
 let enabled = true;
 let statusBarItem;
+let intervalStatusBarItem;
 const DEBUG_PORT = 9222;
 
 let hasShownPortError = false;
@@ -59,19 +60,51 @@ function activate(context) {
     });
     context.subscriptions.push(disposable);
 
+    let setIntervalDisposable = vscode.commands.registerCommand('quack-auto-accept.setInterval', async function () {
+        const config = vscode.workspace.getConfiguration('quack-auto-accept');
+        const currentInterval = config.get('interval', 1500);
+
+        const result = await vscode.window.showInputBox({
+            prompt: 'Enter interval in milliseconds',
+            value: currentInterval.toString(),
+            validateInput: text => {
+                const num = parseInt(text, 10);
+                if (isNaN(num) || num <= 0) {
+                    return 'Please enter a valid positive number';
+                }
+                return null;
+            }
+        });
+
+        if (result) {
+            const newInterval = parseInt(result, 10);
+            await config.update('interval', newInterval, vscode.ConfigurationTarget.Global);
+            vscode.window.showInformationMessage(`Quack Auto-Accept: Interval set to ${newInterval}ms`);
+        }
+    });
+    context.subscriptions.push(setIntervalDisposable);
+
     try {
         statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 10000);
         statusBarItem.command = 'unlimited.toggle';
         context.subscriptions.push(statusBarItem);
 
+        intervalStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 9999);
+        intervalStatusBarItem.command = 'quack-auto-accept.setInterval';
+        context.subscriptions.push(intervalStatusBarItem);
+
         updateStatusBar();
         statusBarItem.show();
+
+        updateIntervalStatusBar();
+        intervalStatusBarItem.show();
     } catch (e) {
         vscode.window.showErrorMessage('Quack Auto-Accept: Failed to create status bar item. Error: ' + e.message);
     }
 
     vscode.workspace.onDidChangeConfiguration(e => {
         if (e.affectsConfiguration('quack-auto-accept.interval')) {
+            updateIntervalStatusBar();
             if (autoAcceptInterval) {
                 clearInterval(autoAcceptInterval);
             }
@@ -94,6 +127,14 @@ function updateStatusBar() {
         statusBarItem.tooltip = "Quack Auto-Accept is Paused (Click to Resume)";
         statusBarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.warningBackground');
     }
+}
+
+function updateIntervalStatusBar() {
+    if (!intervalStatusBarItem) return;
+    const config = vscode.workspace.getConfiguration('quack-auto-accept');
+    const intervalMs = config.get('interval', 1500);
+    intervalStatusBarItem.text = `$(clock) ${intervalMs}ms`;
+    intervalStatusBarItem.tooltip = "Click to set Quack Auto-Accept interval";
 }
 
 function startLoop() {

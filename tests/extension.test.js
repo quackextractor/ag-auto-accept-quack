@@ -160,6 +160,19 @@ async function runTests() {
     }
     global.document = originalDoc;
 
+    console.log('Test: Set Interval Command');
+    const setIntervalCommand = commands.get('quack-auto-accept.setInterval');
+    assert.ok(setIntervalCommand, 'Set Interval command should be registered');
+
+    global.mockInputBoxValue = "2500";
+    await setIntervalCommand();
+    assert.equal(global.mockConfig['interval'], 2500, 'Config should be updated to 2500');
+
+    // Interval should be reset
+    // Length is 1 since clearInterval removes the old one
+    assert.equal(intervals.length, 1, 'Intervals should be running');
+    assert.equal(intervals[0].delay, 2500, 'New interval should be 2500ms');
+
     console.log('Test: Auto-install ws module');
     extension.deactivate();
 

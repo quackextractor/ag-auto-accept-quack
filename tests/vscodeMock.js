@@ -4,11 +4,32 @@ const commands = new Map();
 const vscode = {
     workspace: {
         getConfiguration: () => ({
-            get: (key, defaultValue) => defaultValue
+            get: (key, defaultValue) => {
+                if (global.mockConfig && global.mockConfig[key] !== undefined) {
+                    return global.mockConfig[key];
+                }
+                return defaultValue;
+            },
+            update: async (key, value) => {
+                if (!global.mockConfig) global.mockConfig = {};
+                global.mockConfig[key] = value;
+                if (global.mockOnDidChangeConfiguration) {
+                    global.mockOnDidChangeConfiguration({
+                        affectsConfiguration: (k) => k === `quack-auto-accept.${key}`
+                    });
+                }
+                return Promise.resolve();
+            }
         }),
         onDidChangeConfiguration: (cb) => {
+            global.mockOnDidChangeConfiguration = cb;
             return { dispose: () => { } };
         }
+    },
+    ConfigurationTarget: {
+        Global: 1,
+        Workspace: 2,
+        WorkspaceFolder: 3
     },
     StatusBarAlignment: {
         Right: 1
@@ -40,7 +61,13 @@ const vscode = {
             webview: {
                 html: ''
             }
-        })
+        }),
+        showInputBox: async () => {
+            if (global.mockInputBoxValue !== undefined) {
+                return Promise.resolve(global.mockInputBoxValue);
+            }
+            return Promise.resolve(undefined);
+        }
     },
     commands: {
         registerCommand: (id, callback) => {

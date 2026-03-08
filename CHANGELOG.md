@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.3.0] - 2026-03-08
+### Added
+- Added an interactive status bar widget to easily view and alter the `quack-auto-accept.interval` setting.
+- Added command `quack-auto-accept.setInterval` and associated configuration update logic.
+
 ## [1.2.0] - 2026-03-08
 ### Added
 - Configurable auto-accept interval in extension settings (`quack-auto-accept.interval`).
