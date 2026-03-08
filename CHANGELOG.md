@@ -1,27 +1,33 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
-## [1.1.5] - 2026-03-08
+## [1.1.9] - 2026-03-08
+### Changed
+- Updated README.md
+
+## [1.1.8] - 2026-03-08
+### Added
+- Added `ws` dependency
+
+## [1.1.7] - 2026-03-08
+### Added
+- Added `.vscode/launch.json` for proper remote debugging configuration setup.
+
+## [1.1.6] - 2026-03-08
 ### Removed
 - Removed the Quack troubleshooting status bar widget and command `quack.help`.
 
 ## [1.1.4] - 2026-03-08
-### Added
-- Added `.vscode/launch.json` for proper remote debugging configuration setup.
+### Changed
+- Updated publish workflow to add `version.md`.
 
 ## [1.1.3] - 2026-03-07
 ### Changed
-- Configured GitHub Actions publishing workflow to automatically update the version badge in `README.md` and keep `version.md` in sync during releases.
-
-## [1.1.2] - 2026-03-07
+- Configured GitHub Actions publishing workflow to automatically update the version badge.
 ### Added
-- Auto-install functionality for the `ws` dependency if it is missing upon activation.
+- Auto-install functionality for the `ws` dependency if missing.
 
 ## [1.1.1] - 2026-03-07
-### Changed
-- Minor internal updates.
-
-## [1.1.0] - 2026-03-07
 ### Added
 - Added built-in troubleshooting manual accessible via the `quack-help` status bar item and command.
 - Detailed debugging configuration guide directly in the extension and README.
