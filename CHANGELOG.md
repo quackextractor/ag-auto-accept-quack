@@ -5,6 +5,10 @@ All notable changes to the "ag-auto-accept-quack" extension will be documented i
 ### Added
 - Added an interactive status bar widget to easily view and alter the `quack-auto-accept.interval` setting.
 - Added command `quack-auto-accept.setInterval` and associated configuration update logic.
+### Fixed
+- Implemented Shadow DOM piercing in the CDP injection script to reach buttons inside Webview UI components.
+- Added support for `<vscode-button>` custom elements to ensure compatibility with VS Code toolkit components.
+- Broadened text matching logic to capture both "Expand" and "Expand all" variations.
 
 ## [1.2.0] - 2026-03-08
 ### Added

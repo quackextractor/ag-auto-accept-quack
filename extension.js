@@ -52,7 +52,6 @@ function activate(context) {
         updateStatusBar();
         if (enabled) {
             vscode.window.showInformationMessage('Auto-Accept: ON');
-            // Reset the error throttle so it can warn the user again if it fails
             hasShownPortError = false;
         } else {
             vscode.window.showInformationMessage('Auto-Accept: OFF');
@@ -154,14 +153,12 @@ function injectViaCDP() {
         res.on('end', () => {
             try {
                 const targets = JSON.parse(data);
-
                 const webviewTargets = targets.filter(t => t.url && t.url.includes('vscode-webview://'));
 
                 webviewTargets.forEach(target => {
                     executeScriptInTarget(target.webSocketDebuggerUrl);
                 });
 
-                // Reset port error state on successful connection
                 hasShownPortError = false;
             } catch (err) {
                 vscode.window.showErrorMessage('Quack Auto-Accept: Failed to parse CDP targets. Error: ' + err.message);
@@ -183,19 +180,33 @@ function executeScriptInTarget(wsUrl) {
     ws.on('open', () => {
         const scriptToInject = `
             (function() {
-                const expandSpans = Array.from(document.querySelectorAll('span[role="button"]'));
-                expandSpans.forEach(span => {
-                    if (span.textContent.includes('Expand all')) {
-                        span.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+                function deepQueryAll(selector, root = document) {
+                    let elements = Array.from(root.querySelectorAll(selector));
+                    let allNodes = Array.from(root.querySelectorAll('*'));
+                    for (let node of allNodes) {
+                        if (node.shadowRoot) {
+                            elements = elements.concat(deepQueryAll(selector, node.shadowRoot));
+                        }
+                    }
+                    return elements;
+                }
+
+                const expandCandidates = deepQueryAll('span, div, a');
+                expandCandidates.forEach(el => {
+                    const text = (el.textContent || '').trim();
+                    if (text.startsWith('Expand') && el.children.length <= 1) {
+                        el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
                     }
                 });
 
-                const buttons = Array.from(document.querySelectorAll('button'));
-                const acceptBtn = buttons.find(b => b.textContent && (b.textContent.includes('Accept') || b.textContent.includes('Run') || b.textContent.includes('Always Allow') || b.textContent.includes('Allow')));
-                
-                if (acceptBtn) {
-                    acceptBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-                }
+                const buttonCandidates = deepQueryAll('button, vscode-button');
+                buttonCandidates.forEach(btn => {
+                    const text = (btn.textContent || '').trim();
+                    const triggers = ['Accept', 'Run', 'Always Allow', 'Allow'];
+                    if (triggers.some(t => text.includes(t))) {
+                        btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+                    }
+                });
             })();
         `;
 
