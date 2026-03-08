@@ -6,7 +6,6 @@ let WebSocket;
 let autoAcceptInterval = null;
 let enabled = true;
 let statusBarItem;
-let quackHelpStatusBarItem;
 const DEBUG_PORT = 9222;
 
 let hasShownPortError = false;
@@ -60,18 +59,6 @@ function activate(context) {
     });
     context.subscriptions.push(disposable);
 
-    let helpDisposable = vscode.commands.registerCommand('quack.help', function () {
-        const panel = vscode.window.createWebviewPanel(
-            'quackTroubleshooting',
-            'Quack Troubleshooting',
-            vscode.ViewColumn.One,
-            {}
-        );
-
-        panel.webview.html = getWebviewContent();
-    });
-    context.subscriptions.push(helpDisposable);
-
     try {
         statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 10000);
         statusBarItem.command = 'unlimited.toggle';
@@ -79,13 +66,6 @@ function activate(context) {
 
         updateStatusBar();
         statusBarItem.show();
-
-        quackHelpStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 9999);
-        quackHelpStatusBarItem.command = 'quack.help';
-        quackHelpStatusBarItem.text = '$(question) Quack Help';
-        quackHelpStatusBarItem.tooltip = 'Show Troubleshooting Manual for Quack Auto-Accept';
-        context.subscriptions.push(quackHelpStatusBarItem);
-        quackHelpStatusBarItem.show();
     } catch (e) {
         vscode.window.showErrorMessage('Quack Auto-Accept: Failed to create status bar item. Error: ' + e.message);
     }
@@ -194,66 +174,6 @@ function deactivate() {
     if (autoAcceptInterval) {
         clearInterval(autoAcceptInterval);
     }
-}
-
-function getWebviewContent() {
-    return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quack Troubleshooting</title>
-    <style>
-        body {
-            font-family: var(--vscode-font-family);
-            color: var(--vscode-editor-foreground);
-            background-color: var(--vscode-editor-background);
-            padding: 20px;
-            line-height: 1.6;
-        }
-        h1, h2, h3 {
-            color: var(--vscode-editor-foreground);
-        }
-        code {
-            font-family: var(--vscode-editor-font-family);
-            background-color: var(--vscode-textCodeBlock-background);
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre {
-            background-color: var(--vscode-textCodeBlock-background);
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body>
-    <h2>Setting Up Your Debug Configuration</h2>
-    <p>To ensure your testing environment always opens with the correct debugging port enabled, you need to configure the launch settings for your workspace.</p>
-    <p>Here are the steps to set this up:</p>
-    <ol>
-        <li><strong>Locate the <code>.vscode</code> folder:</strong> Look in the root directory of your extension project. If a folder named <code>.vscode</code> does not exist, create it.</li>
-        <li><strong>Create the file:</strong> Inside the <code>.vscode</code> folder, create a new file and name it <code>launch.json</code>.</li>
-        <li><strong>Add the configuration:</strong> Paste the complete JSON code provided below into the file. The critical addition here is the <code>--remote-debugging-port=9222</code> flag inside the <code>args</code> array.</li>
-    </ol>
-    <pre><code>{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Run Extension with CDP",
-            "type": "extensionHost",
-            "request": "launch",
-            "args": [
-                "--extensionDevelopmentPath=\${workspaceFolder}",
-                "--remote-debugging-port=9222"
-            ]
-        }
-    ]
-}</code></pre>
-    <p>Once this is saved, you can press <strong>F5</strong> or navigate to the Run and Debug view in your sidebar to launch the extension. This will open a new Extension Development Host window that is fully equipped to accept the Chrome DevTools Protocol connections your script is attempting to make.</p>
-</body>
-</html>`;
 }
 
 module.exports = {

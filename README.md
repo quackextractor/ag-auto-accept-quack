@@ -89,8 +89,6 @@ If the extension isn't clicking buttons and the console shows connection errors,
 
 Once this is saved, you can press **F5** or navigate to the Run and Debug view in your sidebar to launch the extension. This will open a new Extension Development Host window that is fully equipped to accept the Chrome DevTools Protocol connections your script is attempting to make.
 
-Alternatively, you can just click the "Quack Help" button in your status bar to view this manual.
-
 ### Feature Requests
 Have an idea to improve the extension? [Submit a Feature Request](https://github.com/quackextractor/ag-auto-accept-quack/issues/new) detailing what you want to achieve and how it would help.
 

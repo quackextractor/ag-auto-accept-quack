@@ -90,9 +90,7 @@ async function runTests() {
 
     console.log('Test: Loop execution when enabled');
 
-    const helpCommand = commands.get('quack.help');
-    assert.ok(helpCommand, 'quack.help command should be registered');
-    helpCommand(); // invoke to test it does not crash webview mock
+
 
     // Mock global window and MouseEvent
     global.window = {};
