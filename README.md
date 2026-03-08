@@ -1,6 +1,6 @@
 # Antigravity Auto Accept Quack
 
-[![Version](https://img.shields.io/badge/version-1.1.9-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/quackextractor/ag-auto-accept-quack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **True hands-free automation for your Antigravity Agent (Quack Edition).**
@@ -38,6 +38,7 @@ If you prefer to stay on GitHub, you can download the latest `.vsix` from the [R
 | Feature | Description |
 |---------|-------------|
 | **DOM Match** | Uses `b.textContent.includes('Accept')` style matching |
+| **Configurable Interval** | Adjust the search interval via extension settings |
 | **Toggle Control** | Click status bar or use keyboard shortcut |
 | **Visual Status** | ON / OFF indicators |
 

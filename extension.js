@@ -70,6 +70,15 @@ function activate(context) {
         vscode.window.showErrorMessage('Quack Auto-Accept: Failed to create status bar item. Error: ' + e.message);
     }
 
+    vscode.workspace.onDidChangeConfiguration(e => {
+        if (e.affectsConfiguration('quack-auto-accept.interval')) {
+            if (autoAcceptInterval) {
+                clearInterval(autoAcceptInterval);
+            }
+            startLoop();
+        }
+    });
+
     startLoop();
 }
 
@@ -88,10 +97,13 @@ function updateStatusBar() {
 }
 
 function startLoop() {
+    const config = vscode.workspace.getConfiguration('quack-auto-accept');
+    const intervalMs = config.get('interval', 1500);
+
     autoAcceptInterval = setInterval(async () => {
         if (!enabled || !WebSocket) return;
         injectViaCDP();
-    }, 500);
+    }, intervalMs);
 }
 
 function injectViaCDP() {
@@ -138,10 +150,7 @@ function executeScriptInTarget(wsUrl) {
                 });
 
                 const buttons = Array.from(document.querySelectorAll('button'));
-                const acceptBtn = buttons.find(b => {
-                    const text = b.textContent.trim();
-                    return text === 'Accept' || text === 'Run' || text === 'Always Allow' || text === 'Allow';
-                });
+                const acceptBtn = buttons.find(b => b.textContent && (b.textContent.includes('Accept') || b.textContent.includes('Run') || b.textContent.includes('Always Allow') || b.textContent.includes('Allow')));
                 
                 if (acceptBtn) {
                     acceptBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));

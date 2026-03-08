@@ -2,7 +2,7 @@
   "name": "ag-auto-accept-quack",
   "displayName": "Antigravity Auto Accept Quack",
   "description": "Automatically accepts Antigravity agent steps without limits, using DOM text-matching for newer versions.",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "icon": "icon.png",
   "publisher": "quackextractor",
   "repository": {
@@ -24,6 +24,16 @@
     "lint": "eslint ."
   },
   "contributes": {
+    "configuration": {
+      "title": "Quack Auto-Accept",
+      "properties": {
+        "quack-auto-accept.interval": {
+          "type": "number",
+          "default": 1500,
+          "description": "Interval in milliseconds to check for Accept/Run buttons."
+        }
+      }
+    },
     "commands": [
       {
         "command": "unlimited.toggle",

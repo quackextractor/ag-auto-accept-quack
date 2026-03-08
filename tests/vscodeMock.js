@@ -2,6 +2,14 @@
 const commands = new Map();
 
 const vscode = {
+    workspace: {
+        getConfiguration: () => ({
+            get: (key, defaultValue) => defaultValue
+        }),
+        onDidChangeConfiguration: (cb) => {
+            return { dispose: () => { } };
+        }
+    },
     StatusBarAlignment: {
         Right: 1
     },

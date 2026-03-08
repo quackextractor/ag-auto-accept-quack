@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to the "ag-auto-accept-quack" extension will be documented in this file.
 
+## [1.2.0] - 2026-03-08
+### Added
+- Configurable auto-accept interval in extension settings (`quack-auto-accept.interval`).
+### Changed
+- Updated auto-accept match logic to use `.includes` for better compatibility.
+
 ## [1.1.9] - 2026-03-08
 ### Changed
 - Updated README.md
