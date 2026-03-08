@@ -2,7 +2,7 @@
   "name": "ag-auto-accept-quack",
   "displayName": "Antigravity Auto Accept Quack",
   "description": "Automatically accepts Antigravity agent steps without limits, using DOM text-matching for newer versions.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "icon": "icon.png",
   "publisher": "quackextractor",
   "repository": {
