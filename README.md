@@ -30,6 +30,7 @@ If you prefer to stay on GitHub, you can download the latest `.vsix` from the [R
 2. Open Antigravity IDE
 3. Go to Extensions -> Click `...` menu -> **Install from VSIX...**
 4. Select the downloaded file
+
 ---
 
 ## Features
@@ -59,13 +60,23 @@ Before submitting an issue, please check the [Issue Tracker](https://github.com/
 
 ### Bug Reports
 If you encounter a problem, please [Open a Bug Report](https://github.com/quackextractor/ag-auto-accept-quack/issues/new). When reporting a bug, try to include:
-- Your OS and VS Code version.
-- The version of the Antigravity Agent.
-- Explicit steps to reproduce the issue.
+* Your OS and VS Code version.
+* The version of the Antigravity Agent.
+* Explicit steps to reproduce the issue.
 
 ### Troubleshooting
-If the extension isn't clicking buttons and the console shows connection errors, ensure your testing environment opens with the correct debugging port enabled:
+If the extension isn't clicking buttons and the console shows connection errors, ensure your environment opens with the correct debugging port enabled.
 
+**For Regular Windows Users:**
+If you are running the application normally, you must modify your Windows shortcut to open the required port:
+1. Unpin your current Antigravity icon from the taskbar.
+2. Look for the Antigravity application in your Start menu or Windows search.
+3. Right-click the application and select **Open file location**.
+4. Right-click the Antigravity shortcut and select **Properties** to edit it.
+5. In the **Target** field, add `--remote-debugging-port=9222` to the very end. You must include a space between the existing text and the new argument.
+6. Drag this modified shortcut back to your taskbar to pin it. Launch the application from this pinned icon going forward.
+
+**For Extension Developers:**
 1. **Locate the `.vscode` folder:** Look in the root directory of your extension project. If a folder named `.vscode` does not exist, create it.
 2. **Create the file:** Inside the `.vscode` folder, create a new file and name it `launch.json`.
 3. **Add the configuration:** Paste the complete JSON code provided below into the file. The critical addition here is the `--remote-debugging-port=9222` flag inside the `args` array.
@@ -85,22 +96,25 @@ If the extension isn't clicking buttons and the console shows connection errors,
         }
     ]
 }
+
 ```
 
 Once this is saved, you can press **F5** or navigate to the Run and Debug view in your sidebar to launch the extension. This will open a new Extension Development Host window that is fully equipped to accept the Chrome DevTools Protocol connections your script is attempting to make.
 
 ### Feature Requests
+
 Have an idea to improve the extension? [Submit a Feature Request](https://github.com/quackextractor/ag-auto-accept-quack/issues/new) detailing what you want to achieve and how it would help.
 
 ### Contributing
+
 Pull requests are welcome! If you're working on something significant, please open an issue first to discuss your proposed changes.
 
 ---
 
 ## Credits
 
-Special thanks to **pesosz** for the original idea that inspired this project. While the source code for this "Quack Edition" has been completely rewritten to use DOM text-matching for ne`we`r Antigravity versions, the core concept remains a tribute to the original tool.
+Special thanks to **pesosz** for the original idea that inspired this project. While the source code for this "Quack Edition" has been completely rewritten to use DOM text-matching for newer Antigravity versions, the core concept remains a tribute to the original tool.
 
 ## License
 
-MIT - See [LICENSE](LICENSE) for details.
+MIT - See [LICENSE](https://www.google.com/search?q=LICENSE) for details.
