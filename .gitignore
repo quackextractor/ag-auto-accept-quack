@@ -9,7 +9,7 @@ node_modules/
 Thumbs.db
 
 # IDE settings
-.vscode/
+# .vscode/
 .idea
 
 # Temporary files
